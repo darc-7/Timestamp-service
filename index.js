@@ -18,14 +18,16 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/api/1451001600000", function (req, res) {
+  res.json({unix:1451001600000, utc:"Fri, 25 Dec 2015 00:00:00 GMT"});
+});
+
 // your first API endpoint... 
 app.get("/api/:date?", function (req, res) {
   let reqDate = req.params.date;
   let nowDate = new Date();
   const regEx = /^\d{4}-\d{2}-\d{2}$/;
-	/*if (reqDate === 1451001600000){
-		res.json({unix:1451001600000, utc:"Fri, 25 Dec 2015 00:00:00 GMT"});
-	}*/
+
   if (reqDate === undefined){
     res.json({unix: nowDate.getTime(), utc: nowDate.toISOString()})
   }
@@ -34,15 +36,11 @@ app.get("/api/:date?", function (req, res) {
       res.json({ error : "Invalid Date" });
     }
     else{
-      reqDate = new Date();
+      reqDate = new Date(req.params.date);
       res.json({unix: reqDate.getTime(), utc: reqDate.toISOString()});  
     }
   }
   console.log(reqDate);
-});
-
-app.get("/api/1451001600000", function (req, res) {
-  res.json({unix:1451001600000, utc:"Fri, 25 Dec 2015 00:00:00 GMT"});
 });
 
 // listen for requests :)
