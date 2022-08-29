@@ -26,6 +26,7 @@ app.get("/api/1451001600000", function (req, res) {
 app.get("/api/:date?", function (req, res) {
   let reqDate = req.params.date;
   let nowDate = new Date();
+  //reg ex that force the input to be YYYY-MM-DD
   const regEx = /^\d{4}-\d{2}-\d{2}$/;
 
   if (reqDate === undefined){
