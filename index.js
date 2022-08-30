@@ -32,14 +32,15 @@ app.get("/api/:date?", function (req, res) {
   if (reqDate === undefined){
     res.json({unix: nowDate.getTime(), utc: nowDate.toUTCString()})
   }
-  else if (reqDate.toString().includes('-') || reqDate.toString().includes(' ')){
+  else if (reqDate.toString().includes('-') || reqDate.toString().includes(' ') || reqDate.toString().includes('/')){
       reqDate = new Date(req.params.date);
       res.json({unix: reqDate.getTime(), utc: reqDate.toUTCString()}); 
   }
+    
   else{
-      res.json({ error : "Invalid Date" });
+        res.json({ error : "Invalid Date" });
   }
-  /*else{
+/*/*else{
     if (reqDate.toString().match(regEx) === null) {
       res.json({ error : "Invalid Date" });
     }
@@ -47,7 +48,7 @@ app.get("/api/:date?", function (req, res) {
       reqDate = new Date(req.params.date);
       res.json({unix: reqDate.getTime(), utc: reqDate.toUTCString()});  
     }
-  }*/
+ */
   console.log(reqDate);
 });
 
